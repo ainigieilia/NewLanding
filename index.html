@@ -947,12 +947,13 @@ document.getElementById('payBtn').addEventListener('click', function() {
           { name: 'firstname',  value: firstName },
           { name: 'lastname',   value: lastName },
           { name: 'email',      value: email },
-          { name: 'company',    value: company },
-          { name: 'plan_selected', value: plan }
+          { name: 'company',    value: company }
         ],
         context: { pageUri: window.location.href, pageName: document.title }
       })
-    }).catch(function(){});
+    }).then(function(res){ console.log('HubSpot status:', res.status); return res.json(); })
+     .then(function(data){ console.log('HubSpot response:', JSON.stringify(data)); })
+     .catch(function(err){ console.log('HubSpot error:', err); });
   }
 
   // Pre-fill email on Stripe and redirect
