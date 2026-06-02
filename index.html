@@ -926,15 +926,39 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCheckou
 
 document.getElementById('payBtn').addEventListener('click', function() {
   let stripeUrl = this.dataset.stripeUrl;
-  if (stripeUrl) {
-    // Pre-fill email on Stripe checkout if the user entered one
-    const emailVal = document.querySelector('#checkoutModal input[type="email"]');
-    if (emailVal && emailVal.value.trim()) {
-      stripeUrl += '?prefilled_email=' + encodeURIComponent(emailVal.value.trim());
-    }
-    window.open(stripeUrl, '_blank');
-    closeCheckout();
+  if (!stripeUrl) return;
+
+  // Grab form values
+  const modal = document.getElementById('checkoutModal');
+  const inputs = modal.querySelectorAll('input[type="text"], input[type="email"]');
+  const firstName = inputs[0] ? inputs[0].value.trim() : '';
+  const lastName  = inputs[1] ? inputs[1].value.trim() : '';
+  const email     = modal.querySelector('input[type="email"]') ? modal.querySelector('input[type="email"]').value.trim() : '';
+  const company   = inputs[3] ? inputs[3].value.trim() : '';
+  const plan      = document.getElementById('modalPlanName').textContent || '';
+
+  // Send to HubSpot Forms API (fire and forget)
+  if (email) {
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/245667407/55bf19ff-9edc-42b1-96be-c1f62cde111d', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [
+          { name: 'firstname',  value: firstName },
+          { name: 'lastname',   value: lastName },
+          { name: 'email',      value: email },
+          { name: 'company',    value: company },
+          { name: 'plan_selected', value: plan }
+        ],
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    }).catch(function(){});
   }
+
+  // Pre-fill email on Stripe and redirect
+  if (email) stripeUrl += '?prefilled_email=' + encodeURIComponent(email);
+  window.open(stripeUrl, '_blank');
+  closeCheckout();
 });
 
 // Hide sticky CTA when pricing section is visible
