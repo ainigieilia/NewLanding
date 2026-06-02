@@ -825,11 +825,24 @@ document.getElementById('payBtn').addEventListener('click', function() {
 // Hide sticky CTA when pricing section is visible
 const pricingEl = document.getElementById('pricing');
 const stickyEl = document.getElementById('stickyCta');
-if (pricingEl && stickyEl) {
-  const obs = new IntersectionObserver(entries => {
-    stickyEl.style.display = entries[0].isIntersecting ? 'none' : 'flex';
-  }, { threshold: 0.1 });
-  obs.observe(pricingEl);
+const stickyBtn = stickyEl ? stickyEl.querySelector('.sticky-cta-btn') : null;
+if (pricingEl && stickyEl && stickyBtn) {
+  function updateStickyBtn() {
+    const rect = pricingEl.getBoundingClientRect();
+    if (rect.bottom < 0) {
+      // Pricing is above viewport — scrolled past it
+      stickyBtn.textContent = 'See Plans ↑';
+      stickyBtn.onclick = function() { pricingEl.scrollIntoView({behavior:'smooth'}); };
+    } else {
+      // Pricing is below or visible
+      stickyBtn.textContent = 'See Plans ↓';
+      stickyBtn.onclick = function() { pricingEl.scrollIntoView({behavior:'smooth'}); };
+    }
+    // Hide when pricing is visible
+    stickyEl.style.display = (rect.top < window.innerHeight && rect.bottom > 0) ? 'none' : 'flex';
+  }
+  window.addEventListener('scroll', updateStickyBtn);
+  updateStickyBtn();
 }
 </script>
 
