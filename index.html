@@ -399,7 +399,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
           <div class="pcf"><span class="pcf-check"></span>Full setup included</div>
           <div class="pcf"><span class="pcf-check"></span>Onboarding call included</div>
         </div>
-        <a href="https://buy.stripe.com/3cI5kDeKGdZs2rm9Jy0ZW01" class="btn-checkout btn-checkout-outline" target="_blank">Get Started - $195/mo ↗</a>
+        <a href="#" onclick="openCheckout('Starter', '$195/month', 'https://buy.stripe.com/3cI5kDeKGdZs2rm9Jy0ZW01'); return false;" class="btn-checkout btn-checkout-outline">Get Started - $195/mo ↗</a>
         <div class="pc-note">No contracts · Cancel anytime</div>
       </div>
 
@@ -421,7 +421,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
           <div class="pcf"><span class="pcf-check"></span>Dedicated account manager</div>
           <div class="pcf"><span class="pcf-check"></span>Priority onboarding</div>
         </div>
-        <a href="https://buy.stripe.com/7sYeVd7ieg7A0jedZO0ZW02" class="btn-checkout btn-checkout-solid" target="_blank">Get Started - $460/mo ↗</a>
+        <a href="#" onclick="openCheckout('Growth', '$460/month', 'https://buy.stripe.com/7sYeVd7ieg7A0jedZO0ZW02'); return false;" class="btn-checkout btn-checkout-solid">Get Started - $460/mo ↗</a>
         <div class="pc-note">No contracts · Cancel anytime</div>
       </div>
 
@@ -441,7 +441,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
           <div class="pcf"><span class="pcf-check"></span>Priority 24/7 support line</div>
           <div class="pcf"><span class="pcf-check"></span>Custom reporting dashboard</div>
         </div>
-        <a href="https://buy.stripe.com/dRm5kD31YbRk3vqg7W0ZW03" class="btn-checkout btn-checkout-outline" target="_blank">Get Started - $855/mo ↗</a>
+        <a href="#" onclick="openCheckout('Pro', '$855/month', 'https://buy.stripe.com/dRm5kD31YbRk3vqg7W0ZW03'); return false;" class="btn-checkout btn-checkout-outline">Get Started - $855/mo ↗</a>
         <div class="pc-note">No contracts · Cancel anytime</div>
       </div>
 
@@ -791,17 +791,17 @@ function toggleFaq(btn) {
 }
 
 // Checkout modal
-function openCheckout(plan, price) {
+function openCheckout(plan, price, stripeUrl) {
   document.getElementById('modalPlanName').textContent = plan + ' Plan';
   document.getElementById('modalPlanPrice').textContent = price + ' · No contract · Cancel anytime';
-  const priceNum = price.replace('Custom pricing','Custom').replace('/month','').trim();
-  document.getElementById('modalTotal').textContent = priceNum === 'Custom' ? 'Custom quote' : priceNum;
-  // Update summary
+  const priceNum = price.replace('/month','').trim();
+  document.getElementById('modalTotal').textContent = priceNum;
   const summaryRows = document.querySelectorAll('#modalSummary .ms-row');
   summaryRows[0].querySelector('span:first-child').textContent = plan + ' Plan';
-  summaryRows[0].querySelector('span:last-child').textContent = priceNum === 'Custom' ? 'TBD' : priceNum;
+  summaryRows[0].querySelector('span:last-child').textContent = priceNum;
   document.getElementById('checkoutModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  document.getElementById('payBtn').dataset.stripeUrl = stripeUrl;
 }
 function closeCheckout() {
   document.getElementById('checkoutModal').style.display = 'none';
@@ -812,14 +812,12 @@ function handleModalClick(e) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCheckout(); });
 
-// Pay button - placeholder action
 document.getElementById('payBtn').addEventListener('click', function() {
-  this.textContent = '↻ Processing...';
-  setTimeout(() => {
+  const stripeUrl = this.dataset.stripeUrl;
+  if (stripeUrl) {
+    window.open(stripeUrl, '_blank');
     closeCheckout();
-    alert(' This is a placeholder checkout. Connect your Stripe payment link here.');
-    this.textContent = 'Complete Purchase ↗';
-  }, 1200);
+  }
 });
 
 // Hide sticky CTA when pricing section is visible
