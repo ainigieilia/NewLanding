@@ -60,6 +60,7 @@ a{text-decoration:none;color:inherit}
 .hero-body{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:560px;margin:0 auto 12px}
 .hero-body-2{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:560px;margin:0 auto 32px}
 .hero-checks{display:flex;justify-content:center;gap:14px;flex-wrap:nowrap;margin-bottom:36px}
+.hc{white-space:nowrap}
 .hc{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,0.6);font-weight:700}
 .hc-dot{color:var(--teal-bright);font-size:15px;font-weight:900;flex-shrink:0;line-height:1}
 .hero-cta-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:16px}
@@ -276,6 +277,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
   .top-bar{padding:0 4%;height:56px}
   .nav-phone{display:none}
   .nav-cta{padding:9px 16px;font-size:13px}
+  .nav-see-plans{display:none}
   .logo-wordmark{font-size:22px}
 
   /* HERO */
@@ -283,7 +285,8 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
   .hero-h1{font-size:36px;letter-spacing:-1px;margin-bottom:16px}
   .hero-body{font-size:15px}
   .hero-checks{gap:10px 16px;margin-bottom:28px}
-  .hc{font-size:12px}
+  .hc{font-size:12px;white-space:normal}
+  .hero-checks{display:grid !important;grid-template-columns:1fr 1fr;gap:10px;justify-items:start;padding:0 8px}
   .btn-hero-primary{padding:16px 32px;font-size:16px;width:100%;text-align:center}
   .hero-stats{grid-template-columns:repeat(2,1fr);margin-top:32px;padding-top:32px}
   .hs-num{font-size:28px}
@@ -386,7 +389,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
   <div class="nav-right">
     <div class="nav-phone"> <a href="tel:18887703307">📞 888-770-3307</a></div>
     <a href="javascript:void(0)" onclick="openCalModal()" class="nav-cta" style="background:transparent;border:2px solid var(--mustard);color:var(--mustard);">Book a Demo</a>
-    <a href="javascript:void(0)" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="nav-cta">See Plans ↓</a>
+    <a href="javascript:void(0)" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="nav-cta nav-see-plans">See Plans ↓</a>
   </div>
 </div>
 
@@ -397,7 +400,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
     <h1 class="hero-h1">Stop Losing Customers to<br><em>Missed Calls.</em></h1>
     <p class="hero-body">24/7 AI Receptionist That Answers, Qualifies, and Books Appointments.</p>
     <div class="hero-checks">
-      <div class="hc"><div class="hc-dot">✓</div>Zero tech setup on your end</div>
+      <div class="hc"><div class="hc-dot">✓</div>Zero tech setup</div>
       <div class="hc"><div class="hc-dot">✓</div>Live within 48 hours</div>
       <div class="hc"><div class="hc-dot">✓</div>Works with your CRM</div>
       <div class="hc"><div class="hc-dot">✓</div>No contracts</div>
