@@ -358,6 +358,11 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
   /* FULL-WIDTH FEATURE CARD */
   .ai-full-card{flex-direction:column !important;gap:16px !important;padding:24px !important}
 
+  /* HERO BUTTONS */
+  .hero-btn-wrap{flex-direction:column !important;align-items:stretch !important;width:100%}
+  .hero-btn-wrap a{width:100% !important;text-align:center !important;box-sizing:border-box !important;white-space:normal !important}
+  .hero-cta-wrap{width:100%}
+
   /* DEMO PHONE BUTTON */
   .demo-phone-link{font-size:20px !important;padding:18px 24px !important;width:100%;justify-content:center}
 
@@ -399,7 +404,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.25)}
     </div>
     <div class="hero-cta-wrap">
       <p style="font-family:'Instrument Serif',serif;font-size:28px;color:var(--white);font-style:italic;margin-bottom:4px;letter-spacing:-0.5px;">Ready To Stop Missing Calls?</p>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center" class="hero-btn-wrap">
         <a href="javascript:void(0)" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="btn-hero-primary">See Plans & Get Started ↓</a>
         <a href="javascript:void(0)" onclick="openCalModal()" style="background:transparent;border:2px solid rgba(255,255,255,0.3);color:var(--white);padding:18px 36px;border-radius:10px;font-weight:900;font-size:16px;font-family:'Cabinet Grotesk',sans-serif;text-decoration:none;transition:all 0.25s;white-space:nowrap" onmouseenter="this.style.borderColor='var(--mustard)';this.style.color='var(--mustard)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='var(--white)'">Book a 15-min Demo →</a>
       </div>
